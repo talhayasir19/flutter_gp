@@ -262,14 +262,14 @@ Widget profileRow() {
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Icon(
+      const Icon(
         Icons.select_all,
         color: ColorConstants.whiteColor,
       ),
       AutoSizeText('My Profile',
           style: TextStyleUtil.sizeMedium(
               isBold: true, color: ColorConstants.whiteColor)),
-      Icon(
+      const Icon(
         Icons.settings_outlined,
         color: ColorConstants.whiteColor,
       ),

@@ -14,7 +14,7 @@ import '../../widgets/password_strength_textfield/export.dart';
 
 class LoginScreenBody extends StatefulWidget {
   LoginScreenBody({super.key});
-  late TextEditingController textEditingController;
+  TextEditingController textEditingController = TextEditingController();
   @override
   State<LoginScreenBody> createState() => _LoginScreenBodyState();
 }
@@ -30,7 +30,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
   Widget build(BuildContext context) {
     LoginScreenBloc loginScreenBloc =
         Provider.of<LoginScreenBloc>(context, listen: false);
-    widget.textEditingController = TextEditingController();
+
     return WillPopScope(
       onWillPop: () async {
         loginScreenBloc.add(CheckBoxEvent(false));

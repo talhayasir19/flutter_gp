@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gp/constants/export.dart';
 import 'package:flutter_gp/flow/login_screen/bloc/export.dart';
 import 'package:flutter_gp/utils/navigator/export.dart';
@@ -59,13 +60,21 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                   SpaceUtil.halfBlockSpace,
                   //Text fields
                   textFields(widget.textEditingController),
-                  Padding(
-                      padding: EdgeInsets.only(
-                          right: customWidth(
-                            0.05,
-                          ),
-                          left: customWidth(0.02)),
-                      child: checkBoxWidget(true)),
+                  BlocBuilder<LoginScreenBloc, LoginScreenState>(
+                    builder: (context, state) {
+                      bool isChecked = false;
+                      if (state is LoginScreenCheckedState) {
+                        isChecked = true;
+                      }
+                      return Padding(
+                          padding: EdgeInsets.only(
+                              right: customWidth(
+                                0.05,
+                              ),
+                              left: customWidth(0.02)),
+                          child: checkBoxWidget(isChecked, loginScreenBloc));
+                    },
+                  ),
                   SpaceUtil.semiHalfBlockSpace,
                   //login button
                   CustomButton(
@@ -99,6 +108,7 @@ Widget textFields(TextEditingController textEditingController) {
       SpaceUtil.minorBlockSpace,
       PasswordStrengthTextField(
         textEditingController: textEditingController,
+        showPasswordStrength: true,
       ),
       SpaceUtil.veryMinorBlockSpace,
     ],
@@ -106,7 +116,7 @@ Widget textFields(TextEditingController textEditingController) {
 }
 
 //remeber me checkbox
-Widget checkBoxWidget(bool isTrue) {
+Widget checkBoxWidget(bool isTrue, LoginScreenBloc loginScreenBloc) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -117,7 +127,11 @@ Widget checkBoxWidget(bool isTrue) {
             child: Checkbox(
               value: isTrue,
               fillColor: MaterialStatePropertyAll(ColorConstants.primaryColor),
-              onChanged: (value) {},
+              overlayColor:
+                  MaterialStatePropertyAll(ColorConstants.primaryColor),
+              onChanged: (value) {
+                loginScreenBloc.add(CheckBoxEvent(value!));
+              },
             ),
           ),
           AutoSizeText(

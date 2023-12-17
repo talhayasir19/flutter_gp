@@ -70,7 +70,9 @@ class _PasswordStrengthTextFieldState extends State<PasswordStrengthTextField> {
                   SizedBox(
                     height: customHeight(0.01),
                   ),
-                  passwordStrengthWidget(strength: state.strength),
+                  SizedBox(
+                      width: customWidth(0.9),
+                      child: passwordStrengthWidget(strength: state.strength)),
                 ],
               ),
 

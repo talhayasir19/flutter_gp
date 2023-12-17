@@ -26,24 +26,8 @@ class ProfileScreenBody extends StatelessWidget {
                 child: Column(
                   children: [
                     SpaceUtil.semiHalfBlockSpace,
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          Icons.select_all,
-                          color: ColorConstants.whiteColor,
-                        ),
-                        AutoSizeText('My Profile',
-                            style: TextStyleUtil.sizeMedium(
-                                isBold: true,
-                                color: ColorConstants.whiteColor)),
-                        Icon(
-                          Icons.settings_outlined,
-                          color: ColorConstants.whiteColor,
-                        ),
-                      ],
-                    ),
+                    //profile row
+                    profileRow()
                   ],
                 ),
               ),
@@ -52,7 +36,7 @@ class ProfileScreenBody extends StatelessWidget {
               top: customHeight(0.12),
               child: Container(
                 width: customWidth(),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: ColorConstants.whiteColor,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(25),
@@ -87,55 +71,10 @@ class ProfileScreenBody extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            width: customWidth(0.3),
-                            height: customHeight(0.1),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                AutoSizeText('23y 4m',
-                                    maxLines: 1,
-                                    style: TextStyleUtil.sizeMedium(
-                                        isBold: true,
-                                        color: ColorConstants.blackColor)),
-                                AutoSizeText('Age',
-                                    maxLines: 1,
-                                    style: TextStyleUtil.sizeSmall(
-                                        isBold: false,
-                                        color: ColorConstants.blackColor)),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: ColorConstants.lightGreyColor,
-                                    width: 1),
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
+                          verticalBox(topText: '23y 4m', bottomText: 'Age'),
                           SpaceUtil.horhalfBlockSpace,
-                          Container(
-                            width: customWidth(0.3),
-                            height: customHeight(0.1),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                AutoSizeText('Male',
-                                    maxLines: 1,
-                                    style: TextStyleUtil.sizeMedium(
-                                        isBold: true,
-                                        color: ColorConstants.blackColor)),
-                                AutoSizeText('Birth Gender',
-                                    maxLines: 1,
-                                    style: TextStyleUtil.sizeSmall(
-                                        isBold: false,
-                                        color: ColorConstants.blackColor)),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: ColorConstants.lightGreyColor,
-                                    width: 1),
-                                borderRadius: BorderRadius.circular(10)),
-                          )
+                          verticalBox(
+                              topText: 'Male', bottomText: 'Birth Gender'),
                         ],
                       ),
                       SpaceUtil.semiHalfBlockSpace,
@@ -151,79 +90,12 @@ class ProfileScreenBody extends StatelessWidget {
                             SpaceUtil.minorBlockSpace,
                             Row(
                               children: [
-                                Column(
-                                  children: [
-                                    SizedBox(
-                                      width: customWidth(0.14),
-                                      height: customWidth(0.14),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        child: Image.asset(
-                                          ImageAssets.menImage,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                    SpaceUtil.minorBlockSpace,
-                                    AutoSizeText('Brother',
-                                        maxLines: 1,
-                                        style: TextStyleUtil.sizeSmall(
-                                            isBold: false,
-                                            color: ColorConstants.blackColor)),
-                                  ],
-                                ),
+                                familyMemberWidget('Brother'),
                                 SpaceUtil.horMinorBlockSpace,
-                                Column(
-                                  children: [
-                                    SizedBox(
-                                      width: customWidth(0.14),
-                                      height: customWidth(0.14),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        child: Image.asset(
-                                          ImageAssets.menImage,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                    SpaceUtil.minorBlockSpace,
-                                    AutoSizeText('Father',
-                                        maxLines: 1,
-                                        style: TextStyleUtil.sizeSmall(
-                                            isBold: false,
-                                            color: ColorConstants.blackColor)),
-                                  ],
-                                ),
+                                familyMemberWidget('Father'),
                                 SpaceUtil.horMinorBlockSpace,
-                                Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        NavigatorUtil.toAddNewMemberPage();
-                                      },
-                                      child: Container(
-                                          width: customWidth(0.14),
-                                          height: customWidth(0.14),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(100),
-                                              border: Border.all(
-                                                  color: ColorConstants
-                                                      .lightGreyColor,
-                                                  width: 1.5)),
-                                          child: Icon(Icons.add)),
-                                    ),
-                                    SpaceUtil.minorBlockSpace,
-                                    AutoSizeText('Add',
-                                        maxLines: 1,
-                                        style: TextStyleUtil.sizeSmall(
-                                            isBold: false,
-                                            color:
-                                                ColorConstants.primaryColor)),
-                                  ],
-                                ),
+                                //add new member
+                                addNewMemberWidget()
                               ],
                             ),
                             SpaceUtil.semiHalfBlockSpace,
@@ -382,4 +254,99 @@ class ProfileScreenBody extends StatelessWidget {
       ],
     );
   }
+}
+
+//top profile widget
+Widget profileRow() {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Icon(
+        Icons.select_all,
+        color: ColorConstants.whiteColor,
+      ),
+      AutoSizeText('My Profile',
+          style: TextStyleUtil.sizeMedium(
+              isBold: true, color: ColorConstants.whiteColor)),
+      Icon(
+        Icons.settings_outlined,
+        color: ColorConstants.whiteColor,
+      ),
+    ],
+  );
+}
+
+//vertical box
+Widget verticalBox({required String topText, required String bottomText}) {
+  return Container(
+    width: customWidth(0.3),
+    height: customHeight(0.1),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        AutoSizeText(topText,
+            maxLines: 1,
+            style: TextStyleUtil.sizeMedium(
+                isBold: true, color: ColorConstants.blackColor)),
+        AutoSizeText(bottomText,
+            maxLines: 1,
+            style: TextStyleUtil.sizeSmall(
+                isBold: false, color: ColorConstants.blackColor)),
+      ],
+    ),
+    decoration: BoxDecoration(
+        border: Border.all(color: ColorConstants.lightGreyColor, width: 1),
+        borderRadius: BorderRadius.circular(10)),
+  );
+}
+
+//family member widget
+Widget familyMemberWidget(String text) {
+  return Column(
+    children: [
+      SizedBox(
+        width: customWidth(0.14),
+        height: customWidth(0.14),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(100),
+          child: Image.asset(
+            ImageAssets.menImage,
+            fit: BoxFit.fill,
+          ),
+        ),
+      ),
+      SpaceUtil.minorBlockSpace,
+      AutoSizeText(text,
+          maxLines: 1,
+          style: TextStyleUtil.sizeSmall(
+              isBold: false, color: ColorConstants.blackColor)),
+    ],
+  );
+}
+
+//add new member widget
+Widget addNewMemberWidget() {
+  return Column(
+    children: [
+      InkWell(
+        onTap: () {
+          NavigatorUtil.toAddNewMemberPage();
+        },
+        child: Container(
+            width: customWidth(0.14),
+            height: customWidth(0.14),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(
+                    color: ColorConstants.lightGreyColor, width: 1.5)),
+            child: Icon(Icons.add)),
+      ),
+      SpaceUtil.minorBlockSpace,
+      AutoSizeText('Add',
+          maxLines: 1,
+          style: TextStyleUtil.sizeSmall(
+              isBold: false, color: ColorConstants.primaryColor)),
+    ],
+  );
 }

@@ -5,9 +5,13 @@ part 'login_screen_event.dart';
 part 'login_screen_state.dart';
 
 class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
-  LoginScreenBloc() : super(LoginScreenInitialState()) {
-    on<LoginScreenEvent>((event, emit) {
-      // TODO: implement event handler
+  LoginScreenBloc() : super(LoginScreenCheckedState()) {
+    on<CheckBoxEvent>((event, emit) {
+      if (event.isSelected) {
+        emit(LoginScreenCheckedState());
+      } else {
+        emit(LoginScreenUnCheckedState());
+      }
     });
   }
 }

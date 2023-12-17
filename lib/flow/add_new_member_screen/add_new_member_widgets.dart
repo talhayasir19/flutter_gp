@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gp/constants/color_constants.dart';
+import 'package:flutter_gp/utils/navigator/export.dart';
 
 import '../../constants/image_assets.dart';
 import '../../utils/export.dart';
@@ -17,7 +18,11 @@ class AddNewMemberBody extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(Icons.arrow_back),
+            InkWell(
+                onTap: () {
+                  NavigatorUtil.pop();
+                },
+                child: Icon(Icons.arrow_back)),
             AutoSizeText('Add Family Member',
                 style: TextStyleUtil.sizeMedium(
                     isBold: true, color: ColorConstants.blackColor)),
